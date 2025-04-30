@@ -48,7 +48,7 @@ namespace LOLUtil.Core.Controller
                     Misc.WriteJson(config, "config.json");
                 }
 
-                send.Json(new ResponseObject<Config>() { Data = Module<Config>.Instance });
+                send.Json(new ResponseObject<Config>() { Data = config });
             }
             catch
             {
