@@ -5,25 +5,25 @@ namespace LOLUtil.Assist.LOL.LCU.Types
     public record LOL_Action
     {
         [JsonPropertyName("actorCellId")]
-        public int ActorCellId;
+        public int ActorCellId { get; set; }
 
         [JsonPropertyName("championId")]
-        public int ChampionId;
+        public int ChampionId { get; set; }
 
         [JsonPropertyName("completed")]
-        public bool Completed;
+        public bool Completed { get; set; }
 
         [JsonPropertyName("id")]
-        public int Id;
+        public int Id { get; set; }
 
         [JsonPropertyName("isAllyAction")]
-        public bool IsAllyAction;
+        public bool IsAllyAction { get; set; }
 
         [JsonPropertyName("isInProgress")]
-        public bool IsInProgress;
+        public bool IsInProgress { get; set; }
 
         // ban / pick
         [JsonPropertyName("type")]
-        public required string Type;
+        public required string Type { get; set; }
     }
 }

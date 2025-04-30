@@ -10,12 +10,12 @@ namespace LOLUtil.Assist.LOL.LCU.Types
     public record LOL_Bans
     {
         [JsonPropertyName("myTeamBans")]
-        public required List<object> MyTeamBans { get; set; }
+        public required List<int> MyTeamBans { get; set; }
 
         [JsonPropertyName("numBans")]
         public int NumBans { get; set; }
 
         [JsonPropertyName("theirTeamBans")]
-        public required List<object> TheirTeamBans { get; set; }
+        public required List<int> TheirTeamBans { get; set; }
     }
 }

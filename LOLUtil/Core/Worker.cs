@@ -98,6 +98,11 @@ namespace LOLUtil.Core
                 if (status.Equals("ChampSelect"))
                 {
 
+                    if (Config.AutoBan.Enable || Config.AutoPick.Enable)
+                    {
+
+                        new BanPickTask().Start(true);
+                    }
                 }
 
                 Thread.Sleep(15);
