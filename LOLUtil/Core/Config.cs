@@ -18,14 +18,12 @@ namespace LOLUtil.Core
 
     public record ConfigFeature
     {
-
         [JsonPropertyName("autoAcceptMM")]
         public bool AutoAcceptMM { get; set; } = false;
     }
 
     public record  Config
     {
-
         [JsonPropertyName("autoBan")]
         public ConfigAutoSelect AutoBan { get; set; } = new();
 
@@ -34,6 +32,5 @@ namespace LOLUtil.Core
 
         [JsonPropertyName("feature")]
         public ConfigFeature Feature { get; set; } = new();
-
     }
 }

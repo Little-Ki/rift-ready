@@ -1,6 +1,5 @@
 ﻿using LOLUtil.Assist.Http;
-using System.Net.Http.Json;
-using System.Text.Json;
+using System.Text;
 
 namespace LOLUtil.Assist.LOL.LCU
 {
@@ -11,7 +10,7 @@ namespace LOLUtil.Assist.LOL.LCU
 
         public void Update(string port, string username, string password)
         {
-            var bytes = System.Text.Encoding.UTF8.GetBytes($"{username}:{password}");
+            var bytes = Encoding.UTF8.GetBytes($"{username}:{password}");
             Token = Convert.ToBase64String(bytes);
             Port = port;
             Domain = $"https://127.0.0.1:{port}/"; 

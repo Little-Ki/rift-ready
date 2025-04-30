@@ -9,12 +9,14 @@ namespace LOLUtil.Core
 
     public class Worker
     {
-        private bool isContinue = true;
-
         private readonly Thread thread;
 
         private readonly LCUAccess lcu = Module<LCUAccess>.Instance;
-        public int processId { get; set; } = -1;
+
+        private int processId = -1;
+
+        private bool isContinue = true;
+
         public Worker()
         {
             thread = new(new ThreadStart(Run));

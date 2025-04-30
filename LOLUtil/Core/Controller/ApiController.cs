@@ -21,14 +21,6 @@ namespace LOLUtil.Core.Controller
             [property: JsonPropertyName("lcuToken")]
             public required string LCUToken { get; set; } = string.Empty;
         }
-        private record PostBPData
-        {
-            [property: JsonPropertyName("id")]
-            public required int ID { get; set; }
-
-            [property: JsonPropertyName("remove")]
-            public required bool Remove { get; set; }
-        }
 
         public static void GetConfig(ServerRecv _, ServerSend send)
         {

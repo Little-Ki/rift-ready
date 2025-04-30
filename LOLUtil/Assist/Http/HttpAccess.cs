@@ -7,7 +7,7 @@ namespace LOLUtil.Assist.Http
     {
         private readonly HttpClient httpClient;
         private readonly HttpClientHandler clientHandler;
-        private readonly CookieContainer cookieContainer;
+        private readonly CookieContainer cookieJar;
 
         public string Domain { get => httpClient.BaseAddress?.ToString() ?? string.Empty; set => httpClient.BaseAddress = new(value); }
 
@@ -40,7 +40,7 @@ namespace LOLUtil.Assist.Http
                 Proxy = null,
                 AllowAutoRedirect = true,
                 UseCookies = true,
-                CookieContainer = cookieContainer = new(),
+                CookieContainer = cookieJar = new(),
                 ServerCertificateCustomValidationCallback = HttpClientHandler.DangerousAcceptAnyServerCertificateValidator
             };
 
@@ -55,7 +55,7 @@ namespace LOLUtil.Assist.Http
                 .Select(x => x.Split('='))
                 .Where(x => x.Length == 2)
                 .ToList()
-                .ForEach(x => cookieContainer.Add(new Cookie(x[0], x[1]) { Domain = domain }));
+                .ForEach(x => cookieJar.Add(new Cookie(x[0], x[1]) { Domain = domain }));
         }
 
         public void Proxy(string? address = null)

@@ -26,6 +26,7 @@ namespace LOLUtil.Utils
 
             return match[index].Groups[in_group].Value;
         }
+
         public static List<string> ExplodeString(string value)
         {
             if (value.Equals(string.Empty))
@@ -68,25 +69,5 @@ namespace LOLUtil.Utils
                 return false;
             }
         }
-        public static string DecodeBase64(string value)
-        {
-            if (value == null || value == "")
-            {
-                return "";
-            }
-            byte[] bytes = Convert.FromBase64String(value);
-            return Encoding.UTF8.GetString(bytes);
-        }
-
-        public static string EncodeBase64(string value)
-        {
-            if (value == null || value == "")
-            {
-                return "";
-            }
-            byte[] bytes = Encoding.UTF8.GetBytes(value);
-            return Convert.ToBase64String(bytes);
-        }
-
     }
 }
