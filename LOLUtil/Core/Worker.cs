@@ -77,14 +77,12 @@ namespace LOLUtil.Core
 
                 if (status.Equals("Lobby"))
                 {
-                    if (Config.Feature.AutoAcceptMM)
-                    {
-                        new AcceptMMTask().Start(true);
-                    }
+
                 }
 
                 if (status.Equals("Matchmaking"))
                 {
+
                 }
 
                 if (status.Equals("ReadyCheck"))
