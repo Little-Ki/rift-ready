@@ -11,7 +11,9 @@ namespace LOLUtil.Core
     {
         private readonly Thread thread;
 
-        private readonly LCUAccess lcu = Module<LCUAccess>.Instance;
+        private readonly LCUAccess lcu = Module<LCUAccess>.Value;
+
+        private static Config Config { get => Module<Config>.Value; }
 
         private int processId = -1;
 
@@ -56,9 +58,7 @@ namespace LOLUtil.Core
         {
             while (isContinue)
             {
-
                 var good = FindGame();
-                var config = Module<Config>.Instance;
 
                 if (!good)
                 {
@@ -73,7 +73,15 @@ namespace LOLUtil.Core
                     goto next;
                 }
 
-                var status = result.Text;
+                var status = result.Json.Root?.GetValue<string>() ?? string.Empty;
+
+                if (status.Equals("Lobby"))
+                {
+                    if (Config.Feature.AutoAcceptMM)
+                    {
+                        new AcceptMMTask().Start(true);
+                    }
+                }
 
                 if (status.Equals("Matchmaking"))
                 {
@@ -81,7 +89,7 @@ namespace LOLUtil.Core
 
                 if (status.Equals("ReadyCheck"))
                 {
-                    if (config.Feature.AutoAcceptMM)
+                    if (Config.Feature.AutoAcceptMM)
                     {
                         new AcceptMMTask().Start(true);
                     }

@@ -25,7 +25,10 @@ namespace LOLUtil
 
         private void MainForm_Load(object sender, EventArgs e)
         {
-            Module<Champions>.Instance.Update();
+            var config = Misc.ReadJson<Config>("config.json");
+
+            Module<Config>.Value = config ?? new();
+            Module<Champions>.Value.Update();
 
             server.Start();
             server
@@ -36,13 +39,6 @@ namespace LOLUtil
                 .Register("GET", "\\/(?!api)([-a-zA-Z0-9()@:%_\\+.~#?&\\/=]*)?", page.Handle);
 
             worker.Start();
-
-            var config = Misc.ReadJson<Config>("config.json");
-
-            if (config != null)
-            {
-                Module<Config>.Instance = config;
-            }
 
             browser.Source = new Uri(server.Url);
 

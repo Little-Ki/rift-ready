@@ -10,9 +10,8 @@ namespace LOLUtil.Core.Tasks
 {
     public class BanChampTask : Runnable<BanChampTask>
     {
-        private readonly LCUAccess lcu = Module<LCUAccess>.Instance;
-
-        private readonly Config config = Module<Config>.Instance;
+        private readonly LCUAccess lcu = Module<LCUAccess>.Value;
+        private static Config Config { get => Module<Config>.Value; }
 
         public override void Run()
         {

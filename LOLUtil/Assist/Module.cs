@@ -8,6 +8,8 @@ namespace LOLUtil.Assist
 {
     public class Module<T> where T : class, new()
     {
-        public static T Instance { get; set; } = new();
+        private static T Instance = new();
+        public static T Value { get => Instance; set { Instance = value; } }
     }
+
 }

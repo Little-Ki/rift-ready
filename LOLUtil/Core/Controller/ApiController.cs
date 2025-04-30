@@ -24,31 +24,25 @@ namespace LOLUtil.Core.Controller
 
         public static void GetConfig(ServerRecv _, ServerSend send)
         {
-            var config = Module<Config>.Instance;
-
-            send.Json(new ResponseObject<Config>() { Data = config });
+            send.Json(new ResponseObject<Config>() { Data = Module<Config>.Value });
         }
 
         public static void PostConfig(ServerRecv recv, ServerSend send)
         {
             try
             {
-                var config = Module<Config>.Instance;
-                var temp = recv.Json<Config>();
+                var config = recv.Json<Config>();
 
-                if (temp != null)
+                if (config != null)
                 {
-                    temp.AutoBan.ChampionIds = temp.AutoBan.ChampionIds.Distinct().ToList();
-                    temp.AutoPick.ChampionIds = temp.AutoPick.ChampionIds.Distinct().ToList();
+                    config.AutoBan.ChampionIds = config.AutoBan.ChampionIds.Distinct().ToList();
+                    config.AutoPick.ChampionIds = config.AutoPick.ChampionIds.Distinct().ToList();
 
-                    config.AutoBan = temp.AutoBan;
-                    config.AutoPick = temp.AutoPick;
-                    config.Feature = temp.Feature;
-
+                    Module<Config>.Value = config;
                     Misc.WriteJson(config, "config.json");
                 }
 
-                send.Json(new ResponseObject<Config>() { Data = config });
+                send.Json(new ResponseObject<Config>() { Data = Module<Config>.Value });
             }
             catch
             {
@@ -59,7 +53,7 @@ namespace LOLUtil.Core.Controller
         public static void GetStatus(ServerRecv _, ServerSend send)
         {
             var process = ProcessFinder.GetProcess("LeagueClientUx");
-            var lcu = Module<LCUAccess>.Instance;
+            var lcu = Module<LCUAccess>.Value;
 
             send.Json(new ResponseObject<GameStatus>()
             {
@@ -74,7 +68,7 @@ namespace LOLUtil.Core.Controller
 
         public static void GetHeros(ServerRecv recv, ServerSend send)
         {
-            var chamnpions = Module<Champions>.Instance;
+            var chamnpions = Module<Champions>.Value;
             var keyword = recv.Param("keyword");
             var id = recv.Param("id");
 
