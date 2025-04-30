@@ -1,0 +1,112 @@
+﻿using LOLUtil.Assist;
+using LOLUtil.Assist.LOL.LCU;
+using LOLUtil.Core.Tasks;
+using LOLUtil.Utils;
+using System.Diagnostics;
+
+namespace LOLUtil.Core
+{
+
+    public class Worker
+    {
+        private bool isContinue = true;
+
+        private readonly Thread thread;
+
+        private readonly LCUAccess lcu = Module<LCUAccess>.Instance;
+        public int processId { get; set; } = -1;
+        public Worker()
+        {
+            thread = new(new ThreadStart(Run));
+        }
+
+        public bool FindGame()
+        {
+            bool exists = ProcessFinder.IsProcess(processId);
+
+            if (exists)
+            {
+                return true;
+            }
+
+            var process = ProcessFinder.GetProcess("LeagueClientUx");
+
+            if (process == null)
+            {
+                return false;
+            }
+
+            var commands = ProcessFinder.ProcessCMD(process);
+
+            if (!commands.TryGetValue("--remoting-auth-token", out string? token) ||
+                !commands.TryGetValue("--app-port", out string? port))
+            {
+                return false;
+            }
+
+            processId = process.Id;
+            lcu.Update(port, "riot", token);
+
+            return true;
+        }
+
+        public void Run()
+        {
+            while (isContinue)
+            {
+
+                var good = FindGame();
+                var config = Module<Config>.Instance;
+
+                if (!good)
+                {
+                    Thread.Sleep(500);
+                    continue;
+                }
+
+                var result = lcu.Send("GET", "lol-gameflow/v1/gameflow-phase").Result;
+
+                if (!result.Success)
+                {
+                    goto next;
+                }
+
+                var status = result.Text;
+
+                if (status.Equals("Matchmaking"))
+                {
+                }
+
+                if (status.Equals("ReadyCheck"))
+                {
+                    if (config.Feature.AutoAcceptMM)
+                    {
+                        new AcceptMMTask().Start(true);
+                    }
+                }
+
+                if (status.Equals("ChampSelect"))
+                {
+
+                }
+
+                Thread.Sleep(15);
+                continue;
+            next:
+                Thread.Sleep(1000);
+            }
+        }
+
+        public void Start()
+        {
+            thread.Start();
+        }
+
+        public void Stop()
+        {
+            isContinue = false;
+            thread.Join();
+        }
+
+    }
+}
