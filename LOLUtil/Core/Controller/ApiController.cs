@@ -33,14 +33,18 @@ namespace LOLUtil.Core.Controller
         {
             try
             {
-                var config = recv.Json<Config>();
-                if (config != null)
+                var config = Module<Config>.Instance;
+                var temp = recv.Json<Config>();
+
+                if (temp != null)
                 {
-                    config.AutoBan.ChampionIds = config.AutoBan.ChampionIds.Distinct().ToList();
-                    config.AutoPick.ChampionIds = config.AutoPick.ChampionIds.Distinct().ToList();
-                    Module<Config>.Instance.AutoBan = config.AutoBan;
-                    Module<Config>.Instance.AutoPick = config.AutoPick;
-                    Module<Config>.Instance.Feature = config.Feature;
+                    temp.AutoBan.ChampionIds = temp.AutoBan.ChampionIds.Distinct().ToList();
+                    temp.AutoPick.ChampionIds = temp.AutoPick.ChampionIds.Distinct().ToList();
+
+                    config.AutoBan = temp.AutoBan;
+                    config.AutoPick = temp.AutoPick;
+                    config.Feature = temp.Feature;
+
                     Misc.WriteJson(config, "config.json");
                 }
 
