@@ -15,8 +15,7 @@
                             <div class="hero-item" v-else v-for="(it, index) of heroList" :key="it.heroId">
                                 <div class="hero-item-padding">
                                     <div class="hero-item-content" @click="() => select(it)">
-                                        <img class="hero-icon"
-                                            :src="`https://game.gtimg.cn/images/lol/act/img/champion/${it.alias}.png`" />
+                                        <img class="hero-icon" :src="getImage(it.alias, 'png')" />
                                         <div class="hero-name">
                                             {{ it.name }}
                                         </div>
@@ -35,6 +34,7 @@
 import Api from '@/api'
 import type { Hero } from '@/api/heros'
 import { reactive, ref } from 'vue'
+import Images from "@/assets/images.json"
 
 import VueScrollbar from "@/components/scrollbar/vue-scrollbar.vue"
 import Popup from './Popup.vue'
@@ -52,6 +52,21 @@ const lateUpdate = ref(0)
 
 const emits = defineEmits(['pick'])
 
+const getImage = (name: string, format: string) => {
+    const key = name as keyof typeof Images.mapping;
+
+    if (Images.mapping[key]) {
+        for (var i of Images.mapping[key]) {
+            var file = Images.files[i];
+
+            if (file.format === format) {
+                return `data:image/${file.format};base64,${file.base64}`;
+            }
+        }
+    }
+
+    return ""
+}
 const fetchHeros = () =>
     Api.heros.list(searchForm.keyword).then(({ data }) => {
         heroList.value = data.data
