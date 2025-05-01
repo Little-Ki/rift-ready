@@ -1,4 +1,5 @@
 ﻿using LOLUtil.Assist;
+using LOLUtil.Assist.Http;
 using LOLUtil.Assist.LOL.LCU;
 using LOLUtil.Assist.LOL.LCU.Types;
 using System;
@@ -22,6 +23,7 @@ namespace LOLUtil.Core.Tasks
         {
             bool process()
             {
+                HttpResult? result;
                 var enableBan = Config.AutoBan.Enable;
                 var enablePick = Config.AutoPick.Enable;
 
@@ -30,80 +32,76 @@ namespace LOLUtil.Core.Tasks
                     return false;
                 }
 
-                var summonerReq = lcu.Send("GET", "lol-summoner/v1/current-summoner").Result;
+                result = lcu.Send("GET", "lol-summoner/v1/current-summoner").Result;
+                var summonerId = result.Json.Value<long>("summonerId");
 
-                if (!summonerReq.Success)
-                {
-                    return false;
-                }
+                result = lcu.Send("GET", "lol-champ-select/v1/session").Result;
 
-                var summonerId = summonerReq.Json.Node("summonerId")!.GetValue<long>();
-
-                var sessionReq = lcu.Send("GET", "lol-champ-select/v1/session").Result;
-
-                if (!sessionReq.Success)
-                {
-                    return false;
-                }
-
-                var session = sessionReq.Json.Root.Deserialize<LOL_ChampSelectSession>()!;
-
-                if (!session.Timer.Phase.Equals("BAN_PICK"))
-                {
-                    return false;
-                }
-
+                var session = result.Json.Object<LOL_ChampSelectSession>()!;
                 var ownCellId = session.MyTeam.Find(x => x.SummonerId == summonerId)!.CellId;
-
                 var alreayBans = session.Bans.MyTeamBans.Union(session.Bans.TheirTeamBans);
 
-                LOL_Action? action = null;
+                LOL_Action? action = session
+                    .Actions
+                    .Where(x => x.Any(x => x.ActorCellId == ownCellId && x.IsInProgress))
+                    .Select(x => x.First(x => x.ActorCellId == ownCellId && x.IsInProgress))
+                    .FirstOrDefault();
 
-                foreach (var i in session.Actions)
-                {
-                    action = i.Find(x => x.ActorCellId == ownCellId && x.IsInProgress && !x.Completed);
-                    if (action != null) break;
-                }
+                result = lcu.Send("GET", "lol-champ-select/v1/pickable-champion-ids").Result;
+                var pickableIds = result.Json.Array<List<int>>() ?? [];
+                var benchChampions = session.BenchChampions;
 
-                if (action == null)
+                if (action != null)
                 {
-                    return false;
-                }
-
-                if (action.Type.Equals("ban") && enableBan)
-                {
-                    var recommendBans = Config.AutoBan.ChampionIds;
-                    if (recommendBans.Any(x => !alreayBans.Contains(x)))
+                    if (action.Type.Equals("ban") && enableBan)
                     {
-                        var confirmBan = recommendBans.First(x => !alreayBans.Contains(x));
+                        var recommendBans = Config.AutoBan.ChampionIds;
+                        var confirmBan = recommendBans.FirstOrDefault(x => !alreayBans.Contains(x));
+                        if (confirmBan != 0)
+                        {
+                            action.Completed = true;
+                            action.ChampionId = confirmBan;
 
-                        action.Completed = true;
-                        action.ChampionId = confirmBan;
-
-                        lcu.Send("PATCH", $"lol-champ-select/v1/session/actions/{action.Id}", JsonContent.Create(action)).Wait();
-                    }
-                }
-
-                if (action.Type.Equals("pick") && enablePick)
-                {
-                    var recommendPicks = Config.AutoPick.ChampionIds;
-                    var pickableReq = lcu.Send("GET", "lol-champ-select/v1/pickable-champion-ids").Result;
-
-                    if (!pickableReq.Success)
-                    {
-                        return false;
+                            lcu.Send("PATCH", $"lol-champ-select/v1/session/actions/{action.Id}", JsonContent.Create(action)).Wait();
+                        }
                     }
 
-                    var pickableIds = pickableReq.Json.Root!.AsArray().Deserialize<List<int>>() ?? [];
-
-                    if (recommendPicks.Any(x => !alreayBans.Contains(x) && pickableIds.Contains(x)))
+                    if (action.Type.Equals("pick") && enablePick)
                     {
-                        var confirmPick = recommendPicks.First(x => !alreayBans.Contains(x) && pickableIds.Contains(x));
+                        var recommendPicks = Config.AutoPick.ChampionIds;
+                        var confirmPick = recommendPicks.FirstOrDefault(x => !alreayBans.Contains(x) && pickableIds.Contains(x));
 
-                        action.Completed = true;
-                        action.ChampionId = confirmPick;
+                        if (confirmPick != 0)
+                        {
+                            action.Completed = true;
+                            action.ChampionId = confirmPick;
 
-                        lcu.Send("PATCH", $"lol-champ-select/v1/session/actions/{action.Id}", JsonContent.Create(action)).Wait();
+                            lcu.Send("PATCH", $"lol-champ-select/v1/session/actions/{action.Id}", JsonContent.Create(action)).Wait();
+                        }
+                    }
+                }
+                else
+                {
+                    if (benchChampions.Count > 0 && enablePick)
+                    {
+                        result = lcu.Send("GET", "lol-champ-select/v1/current-champion").Result;
+                        var recommendPicks = Config.AutoPick.ChampionIds;
+
+                        var switchFrom = result.Json.Value<int>();
+                        var switchTo = recommendPicks
+                            .FirstOrDefault(
+                            x => pickableIds.Contains(x) && !alreayBans.Contains(x) && benchChampions.Any(y => y.ChampionId == x)
+                            );
+
+                        if (switchTo != 0)
+                        {
+                            var indexFrom = recommendPicks.IndexOf(switchFrom);
+                            var indexTo = recommendPicks.IndexOf(switchTo);
+                            if (indexFrom == -1 || indexFrom > indexTo)
+                            {
+                                lcu.Send("POST", $"lol-champ-select/v1/session/bench/swap/{switchTo}").Wait();
+                            }
+                        }
                     }
                 }
 

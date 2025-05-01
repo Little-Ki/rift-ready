@@ -13,18 +13,7 @@ namespace LOLUtil.Assist.Http
     {
         public readonly JsonNode? Root;
 
-        public JsonWrapper(string content)
-        {
-            try
-            {
-                Root = JsonNode.Parse(content);
-            } catch
-            {
-                Root = null;
-            }
-        }
-
-        public JsonNode? Node(params dynamic[] path)
+        private JsonNode? Node(params dynamic[] path)
         {
             var node = Root;
 
@@ -36,6 +25,51 @@ namespace LOLUtil.Assist.Http
             }
 
             return node;
+        }
+
+        public JsonWrapper(string content)
+        {
+            try
+            {
+                Root = JsonNode.Parse(content);
+            } catch
+            {
+                Root = null;
+            }
+        }
+
+        public T? Array<T>(params dynamic[] path) where T : class
+        {
+            try
+            {
+                return Node(path)!.AsArray().Deserialize<T>();
+            }
+            catch
+            {
+                return null;
+            }
+        }
+
+        public T Value<T>(params dynamic[] path) where T : struct
+        {
+            try
+            {
+                return Node(path)!.GetValue<T>();
+            } catch
+            {
+                return default;
+            }
+        }
+
+        public T? Object<T>(params dynamic[] path) where T : class
+        {
+            try
+            {
+                return Node(path)!.AsObject().Deserialize<T>();
+            } catch
+            {
+                return null;
+            }
         }
     }
 }

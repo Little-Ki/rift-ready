@@ -29,7 +29,7 @@ namespace LOLUtil.Assist.LOL.LCU.Types
         public required LOL_Bans Bans { get; set; }
 
         [JsonPropertyName("benchChampions")]
-        public List<object> BenchChampions { get; set; } = [];
+        public List<LOL_BenchChampion> BenchChampions { get; set; } = [];
 
         [JsonPropertyName("benchEnabled")]
         public bool BenchEnabled { get; set; }

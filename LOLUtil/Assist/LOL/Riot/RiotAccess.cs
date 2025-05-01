@@ -14,7 +14,7 @@ namespace LOLUtil.Assist.LOL.Riot
                 return null;
             }
 
-            return result.Json.Node().Deserialize<LOL_HeroList>();
+            return result.Json.Object<LOL_HeroList>();
         }
     }
 }
