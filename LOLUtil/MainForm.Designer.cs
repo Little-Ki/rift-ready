@@ -66,7 +66,6 @@
             // notifyIcon
             // 
             notifyIcon.Icon = (Icon)resources.GetObject("notifyIcon.Icon");
-            notifyIcon.Text = "notifyIcon";
             notifyIcon.Visible = true;
             notifyIcon.MouseClick += Icon_MouseClick;
             notifyIcon.MouseDoubleClick += Icon_DoubleClick;

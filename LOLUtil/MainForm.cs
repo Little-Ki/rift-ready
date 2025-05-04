@@ -4,7 +4,7 @@ using LOLUtil.Assist.LOL;
 using LOLUtil.Assist.Server;
 using LOLUtil.Core;
 using LOLUtil.Core.Controller;
-using LOLUtil.Utils;
+using LOLUtil.Assist;
 using System.Drawing;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement.TextBox;
@@ -25,7 +25,7 @@ namespace LOLUtil
 
         private void MainForm_Load(object sender, EventArgs e)
         {
-            var config = Misc.ReadJson<Config>("config.json");
+            var config = Assist.Utils.ReadJson<Config>("config.json");
 
             Module<Config>.Value = config ?? new();
             Module<Champions>.Value.Update();
@@ -66,6 +66,7 @@ namespace LOLUtil
                 e.Cancel = true;
                 Hide();
                 WindowState = FormWindowState.Minimized;
+                Utils.Notification("通知", "窗口已隐藏至后台");
             }
         }
 

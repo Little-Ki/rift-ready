@@ -1,7 +1,7 @@
 ﻿using LOLUtil.Assist;
 using LOLUtil.Assist.LOL.LCU;
 using LOLUtil.Core.Tasks;
-using LOLUtil.Utils;
+using LOLUtil.Assist;
 using System.Diagnostics;
 
 namespace LOLUtil.Core

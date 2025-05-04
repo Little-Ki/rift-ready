@@ -3,7 +3,6 @@ using LOLUtil.Assist.LOL;
 using LOLUtil.Assist.LOL.LCU;
 using LOLUtil.Assist.LOL.Riot;
 using LOLUtil.Assist.Server;
-using LOLUtil.Utils;
 using System.Text.Json.Serialization;
 
 namespace LOLUtil.Core.Controller
@@ -39,7 +38,7 @@ namespace LOLUtil.Core.Controller
                     config.AutoPick.ChampionIds = config.AutoPick.ChampionIds.Distinct().ToList();
 
                     Module<Config>.Value = config;
-                    Misc.WriteJson(config, "config.json");
+                    Assist.Utils.WriteJson(config, "config.json");
                 }
 
                 send.Json(new ResponseObject<Config>() { Data = Module<Config>.Value });

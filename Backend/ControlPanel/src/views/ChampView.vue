@@ -1,6 +1,6 @@
 <template>
     <div class="view-content">
-        <title-view value="英雄信息" :buttons="['plus']" @button="showPicker">
+        <title-view value="英雄查询" :buttons="['plus']" @button="showPicker">
         </title-view>
         <div class="hero-content" v-if="heroInfo">
             <swiper width="200px" aspect="180%">
@@ -18,7 +18,7 @@
                     <div style="font-size: 1.1rem;">{{ heroInfo.hero.title }}</div>
                 </div>
                 <div class="hero-spells">
-                    <div v-for="(it, index) of ['passive', 'q', 'w', 'e', 'r']" :key="index" class="spell-icon" :class="{
+                    <div v-for="(it, index) in ['passive', 'q', 'w', 'e', 'r']" :key="index" class="spell-icon" :class="{
                         select: spell.spellKey === it
                     }" @click="() => switchSpell(it)!">
                         <img :src="findSpell(it).abilityIconPath" />
