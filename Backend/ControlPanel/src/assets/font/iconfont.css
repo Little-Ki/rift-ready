@@ -19,6 +19,10 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
+.icon-github:before {
+  content: "\e628";
+}
+
 .icon-right-arrow-0:before {
   content: "\ed9d";
 }

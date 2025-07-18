@@ -40,7 +40,8 @@ namespace LOLUtil
 
             worker.Start();
 
-            browser.Source = new Uri(server.Url);
+            browser.Source = new Uri("http://localhost:5173/");
+            //browser.Source = new Uri(server.Url);
 
             browser.CoreWebView2InitializationCompleted += (sender, e) =>
             {
