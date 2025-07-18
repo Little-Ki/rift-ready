@@ -6,7 +6,7 @@ using System.Text;
 using System.Text.Json.Nodes;
 using System.Threading.Tasks;
 
-namespace LOLUtil.Assist.Http
+namespace RiftReady.Assist.Http
 {
     public class HttpResult(HttpResponseMessage message)
     {

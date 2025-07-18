@@ -1,6 +1,6 @@
-﻿using LOLUtil.Assist.LOL.Riot;
+﻿using RiftReady.Assist.LOL.Riot;
 
-namespace LOLUtil.Assist.LOL
+namespace RiftReady.Assist.LOL
 {
     public class Champions
     {

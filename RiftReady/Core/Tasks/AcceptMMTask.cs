@@ -1,7 +1,7 @@
-﻿using LOLUtil.Assist;
-using LOLUtil.Assist.LOL.LCU;
+﻿using RiftReady.Assist;
+using RiftReady.Assist.LOL.LCU;
 
-namespace LOLUtil.Core.Tasks
+namespace RiftReady.Core.Tasks
 {
     public class AcceptMMTask : Runnable<AcceptMMTask>
     {

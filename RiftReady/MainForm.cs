@@ -1,15 +1,15 @@
 
-using LOLUtil.Assist;
-using LOLUtil.Assist.LOL;
-using LOLUtil.Assist.Server;
-using LOLUtil.Core;
-using LOLUtil.Core.Controller;
-using LOLUtil.Assist;
+using RiftReady.Assist;
+using RiftReady.Assist.LOL;
+using RiftReady.Assist.Server;
+using RiftReady.Core;
+using RiftReady.Core.Controller;
+using RiftReady.Assist;
 using System.Drawing;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement.TextBox;
 
-namespace LOLUtil
+namespace RiftReady
 {
     public partial class MainForm : Form
     {

@@ -6,7 +6,7 @@ using System.Text.Json;
 using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 
-namespace LOLUtil.Assist.Converter
+namespace RiftReady.Assist.Converter
 {
     public class JStringArrayConverter : JsonConverter<string[]>
     {

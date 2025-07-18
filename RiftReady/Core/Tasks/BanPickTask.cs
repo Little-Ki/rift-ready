@@ -1,7 +1,7 @@
-﻿using LOLUtil.Assist;
-using LOLUtil.Assist.Http;
-using LOLUtil.Assist.LOL.LCU;
-using LOLUtil.Assist.LOL.LCU.Types;
+﻿using RiftReady.Assist;
+using RiftReady.Assist.Http;
+using RiftReady.Assist.LOL.LCU;
+using RiftReady.Assist.LOL.LCU.Types;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -11,7 +11,7 @@ using System.Text;
 using System.Text.Json;
 using System.Threading.Tasks;
 
-namespace LOLUtil.Core.Tasks
+namespace RiftReady.Core.Tasks
 {
     public class BanPickTask : Runnable<BanPickTask>
     {

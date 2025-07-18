@@ -7,7 +7,7 @@ using System.Text.Json.Nodes;
 using System.Xml.Linq;
 using static System.Runtime.InteropServices.JavaScript.JSType;
 
-namespace LOLUtil.Assist.Http
+namespace RiftReady.Assist.Http
 {
     public class JsonWrapper
     {

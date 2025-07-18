@@ -1,10 +1,10 @@
-﻿using LOLUtil.Assist;
-using LOLUtil.Assist.Server;
+﻿using RiftReady.Assist;
+using RiftReady.Assist.Server;
 using System.Diagnostics;
 using System.IO.Compression;
 using System.Text;
 
-namespace LOLUtil.Core.Controller
+namespace RiftReady.Core.Controller
 {
     public class PageController 
     {
@@ -17,7 +17,7 @@ namespace LOLUtil.Core.Controller
         {
             try
             {
-                stream = System.Reflection.Assembly.GetExecutingAssembly().GetManifestResourceStream("LOLUtil.Resources.dist.zip");
+                stream = System.Reflection.Assembly.GetExecutingAssembly().GetManifestResourceStream("RiftReady.Resources.dist.zip");
                 zip = new ZipArchive(stream!, ZipArchiveMode.Read, true);
                 isGood = true;
             }

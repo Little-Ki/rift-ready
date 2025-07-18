@@ -1,6 +1,6 @@
 ﻿using System.Text.Json.Serialization;
 
-namespace LOLUtil.Assist.LOL.LCU.Types
+namespace RiftReady.Assist.LOL.LCU.Types
 {
     public record LOL_ImplementationDetails
     {

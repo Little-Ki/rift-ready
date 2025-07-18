@@ -2,7 +2,7 @@
 using System.Text.Json;
 using System.Text.Json.Nodes;
 
-namespace LOLUtil.Assist.Server
+namespace RiftReady.Assist.Server
 {
     public class ServerRecv(HttpListenerRequest request)
     {

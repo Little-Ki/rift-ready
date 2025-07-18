@@ -7,7 +7,7 @@ using System.Text.Json;
 using System.Threading.Tasks;
 using static System.Runtime.InteropServices.JavaScript.JSType;
 
-namespace LOLUtil.Assist.Server
+namespace RiftReady.Assist.Server
 {
     public class ServerSend
     {

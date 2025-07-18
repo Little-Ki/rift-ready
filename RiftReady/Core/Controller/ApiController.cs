@@ -1,11 +1,11 @@
-﻿using LOLUtil.Assist;
-using LOLUtil.Assist.LOL;
-using LOLUtil.Assist.LOL.LCU;
-using LOLUtil.Assist.LOL.Riot;
-using LOLUtil.Assist.Server;
+﻿using RiftReady.Assist;
+using RiftReady.Assist.LOL;
+using RiftReady.Assist.LOL.LCU;
+using RiftReady.Assist.LOL.Riot;
+using RiftReady.Assist.Server;
 using System.Text.Json.Serialization;
 
-namespace LOLUtil.Core.Controller
+namespace RiftReady.Core.Controller
 {
     public class ApiController
     {

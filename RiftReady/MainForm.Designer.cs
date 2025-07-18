@@ -1,4 +1,4 @@
-﻿namespace LOLUtil
+﻿namespace RiftReady
 {
     partial class MainForm
     {

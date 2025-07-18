@@ -1,7 +1,7 @@
 ﻿using System.Net;
 using System.Text.Json.Nodes;
 
-namespace LOLUtil.Assist.Http
+namespace RiftReady.Assist.Http
 {
     public class HttpAccess : IDisposable
     {

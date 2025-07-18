@@ -1,7 +1,7 @@
-﻿using LOLUtil.Assist.Http;
+﻿using RiftReady.Assist.Http;
 using System.Text.Json;
 
-namespace LOLUtil.Assist.LOL.Riot
+namespace RiftReady.Assist.LOL.Riot
 {
     public static class RiotAccess
     {

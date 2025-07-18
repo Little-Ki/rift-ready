@@ -1,5 +1,5 @@
 
-namespace LOLUtil
+namespace RiftReady
 {
     internal static class Program
     {

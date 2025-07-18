@@ -1,7 +1,7 @@
-﻿using LOLUtil.Assist.Http;
+﻿using RiftReady.Assist.Http;
 using System.Text;
 
-namespace LOLUtil.Assist.LOL.LCU
+namespace RiftReady.Assist.LOL.LCU
 {
     public class LCUAccess : HttpAccess
     {

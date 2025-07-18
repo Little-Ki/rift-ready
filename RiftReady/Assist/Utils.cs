@@ -5,7 +5,7 @@ using System.Text.RegularExpressions;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement.Tab;
 
 
-namespace LOLUtil.Assist
+namespace RiftReady.Assist
 {
     public static class Utils
     {

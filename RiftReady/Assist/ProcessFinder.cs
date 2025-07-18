@@ -7,7 +7,7 @@ using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
-namespace LOLUtil.Assist
+namespace RiftReady.Assist
 {
     public static class ProcessFinder
     {

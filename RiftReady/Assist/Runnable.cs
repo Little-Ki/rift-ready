@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace LOLUtil.Assist
+namespace RiftReady.Assist
 {
     public abstract class Runnable<T> : IRunnable where T : IRunnable
     {

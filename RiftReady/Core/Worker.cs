@@ -1,10 +1,10 @@
-﻿using LOLUtil.Assist;
-using LOLUtil.Assist.LOL.LCU;
-using LOLUtil.Core.Tasks;
-using LOLUtil.Assist;
+﻿using RiftReady.Assist;
+using RiftReady.Assist.LOL.LCU;
+using RiftReady.Core.Tasks;
+using RiftReady.Assist;
 using System.Diagnostics;
 
-namespace LOLUtil.Core
+namespace RiftReady.Core
 {
 
     public class Worker

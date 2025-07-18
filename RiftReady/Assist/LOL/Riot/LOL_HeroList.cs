@@ -1,6 +1,6 @@
 ﻿using System.Text.Json.Serialization;
 
-namespace LOLUtil.Assist.LOL.Riot
+namespace RiftReady.Assist.LOL.Riot
 {
     public record LOL_HeroList
     {

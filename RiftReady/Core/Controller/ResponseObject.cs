@@ -5,7 +5,7 @@ using System.Text;
 using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 
-namespace LOLUtil.Core.Controller
+namespace RiftReady.Core.Controller
 {
     public class Response
     {
