@@ -4,7 +4,6 @@ using RiftReady.Assist.LOL;
 using RiftReady.Assist.Server;
 using RiftReady.Core;
 using RiftReady.Core.Controller;
-using RiftReady.Assist;
 using System.Drawing;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement.TextBox;
@@ -40,8 +39,8 @@ namespace RiftReady
 
             worker.Start();
 
-            browser.Source = new Uri("http://localhost:5173/");
-            //browser.Source = new Uri(server.Url);
+            //browser.Source = new Uri("http://localhost:5173/");
+            browser.Source = new Uri(server.Url);
 
             browser.CoreWebView2InitializationCompleted += (sender, e) =>
             {

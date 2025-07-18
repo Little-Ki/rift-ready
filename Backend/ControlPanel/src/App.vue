@@ -9,9 +9,7 @@
       <router-button icon="ban" name="ban" />
       <router-button icon="picker" name="pick" />
       <router-button icon="wrench" name="feature" />
-      <router-button icon="sword" name="champ" />
       <router-button icon="lobby" name="game" />
-      <router-button icon="info" name="about" />
     </div>
     <div class="router-view">
       <router-view v-slot="{ Component }">

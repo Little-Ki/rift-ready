@@ -16,11 +16,6 @@ const router = createRouter({
       component: IndexView,
     },
     {
-      path: '/about',
-      name: 'about',
-      component: AboutView,
-    },
-    {
       path: '/ban',
       name: 'ban',
       component: BanView,
@@ -34,11 +29,6 @@ const router = createRouter({
       path: '/feature',
       name: 'feature',
       component: FeatureView,
-    },
-    {
-      path: '/champ',
-      name: 'champ',
-      component: ChampView,
     },
     {
       path: '/game',
